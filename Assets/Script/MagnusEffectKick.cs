@@ -21,7 +21,7 @@ public class MagnusEffectKick : MonoBehaviour
         {
             rb.AddForce(Vector3.forward * kickForce, ForceMode.Impulse);
 
-            rb.AddTorque(Vector3.up * spinAmount);
+            rb.AddTorque(Vector3.down * spinAmount);
 
             isShot = true;
         }
@@ -30,12 +30,14 @@ public class MagnusEffectKick : MonoBehaviour
     }
     void FixedUpdate()
     {
-        if (isShot) return;
+        if (!isShot) return;
         {
             Vector3 velocity = rb.linearVelocity;
             Vector3 spin = rb.angularVelocity;
 
             Vector3 magnusForce = manusStrength * Vector3.Cross(spin, velocity);
+
+            rb.AddForce(magnusForce);
         }
     }
 }
